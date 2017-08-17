@@ -1,0 +1,13 @@
+%p#notice= notice
+%h1 Your Pragmatic Catalog
+
+- cache @products do
+  - @products.each do |product|
+    - cache product do
+      .entry
+        = image_tag product.image_url
+        %h3= product.title
+        = sanitize(product.description)
+        .price_line
+          %span.price= number_to_currency(product.price, unit: 'P')
+          = button_to 'Add to Cart', line_items_path(product_id: product), id: "product#{product.id}", remote: true
